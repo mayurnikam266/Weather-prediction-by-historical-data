@@ -391,7 +391,7 @@ if uploaded_file_widget is not None:
 
             if submit_plot_form_button:
                 st.session_state.plot_start_date_ss, st.session_state.plot_end_date_ss = form_start_date, form_end_date
-                st.session_state.plots_generated = False; generate_plots(df_current_upload, form_start_date, form_end_date); st.experimental_rerun()
+                st.session_state.plots_generated = False; generate_plots(df_current_upload, form_start_date, form_end_date); st.rerun()
 
             if not submit_plot_form_button and st.session_state.get('plots_generated', False):
                 if st.session_state.plot_start_date_ss and st.session_state.plot_end_date_ss:
@@ -402,7 +402,7 @@ if uploaded_file_widget is not None:
         else: st.warning("No valid dates in uploaded data for plotting range selection.")
         st.subheader("1.4 Model Training")
         if st.button("🧠 Train Model with Current Uploaded Data", key="train_model_button_step1"):
-            if train_model(df_current_upload): st.success("Model trained and saved successfully!"); st.balloons(); st.experimental_rerun()
+            if train_model(df_current_upload): st.success("Model trained and saved successfully!"); st.balloons(); st.rerun()
             else: st.error("Model training failed. Please check data and configurations.")
     elif uploaded_file_widget is not None: st.error("File uploaded, but data could not be loaded/cleaned. Check CSV content and format.")
 
@@ -418,7 +418,7 @@ if st.button("🔄 Clear All Data & Reset Full Application State", key="reset_al
         except OSError: pass
     for key_to_reset, default_val in default_session_state.items():
         st.session_state[key_to_reset] = default_val if key_to_reset != 'session_id' else str(uuid.uuid4()) # Keep session_id unique
-    st.success("Application state and any saved models cleared. Please re-upload data."); st.experimental_rerun()
+    st.success("Application state and any saved models cleared. Please re-upload data."); st.rerun()
 
 # --- Step 2: Predict Next Day's Weather ---
 st.markdown("---")
